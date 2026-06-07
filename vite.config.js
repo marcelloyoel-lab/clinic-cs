@@ -36,6 +36,13 @@ const FontsJsFiles = GetFilesArray('resources/assets/vendor/fonts/**/!(_)*.js');
 const FontsCssFiles = GetFilesArray('resources/assets/vendor/fonts/**/!(_)*.css');
 
 export default defineConfig({
+  server: {
+    host: '0.0.0.0',
+    hmr: {
+      host: 'clinic-cs.test'
+    },
+    cors: true
+  },
   plugins: [
     laravel({
       input: [
