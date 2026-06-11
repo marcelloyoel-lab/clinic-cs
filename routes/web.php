@@ -117,6 +117,10 @@ Route::middleware('guest')->group(function () {
         ->name('login.store');
 });
 
-Route::post('/logout', [LoginBasic::class, 'destroy'])
-    ->middleware('auth')
-    ->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [Analytics::class, 'index'])
+        ->name('dashboard-schedule');
+
+    Route::post('/logout', [LoginBasic::class, 'destroy'])
+        ->name('logout');
+});
