@@ -1,7 +1,7 @@
 <?php
 // Variables
 return [
-  "creatorName" => "ThemeSelection",
+  "creatorName" => "Marcello Yoel",
   "creatorUrl" => "https://themeselection.com",
   "templateName" => "sneat",
   "templateSuffix" => "Sneat Bootstrap Dashboard FREE",
