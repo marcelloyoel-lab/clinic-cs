@@ -10,6 +10,11 @@
           "url": "/dashboard",
           "name": "Schedule",
           "slug": "dashboard-schedule"
+        },
+        {
+          "url": "/new-schedule",
+          "name": "New Schedule",
+          "slug": "dashboard-new-schedule"
         }
       ]
     },

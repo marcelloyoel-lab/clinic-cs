@@ -16,6 +16,7 @@ use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\cards\CardBasic;
+use App\Http\Controllers\dashboard\ScheduleController;
 use App\Http\Controllers\user_interface\Accordion;
 use App\Http\Controllers\user_interface\Alerts;
 use App\Http\Controllers\user_interface\Badges;
@@ -120,6 +121,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [Analytics::class, 'index'])
         ->name('dashboard-schedule');
+
+    Route::get('/new-schedule', [ScheduleController::class, 'index'])
+        ->name('dashboard-new-schedule');
 
     Route::post('/logout', [LoginBasic::class, 'destroy'])
         ->name('logout');
