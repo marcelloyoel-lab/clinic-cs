@@ -1,4 +1,8 @@
 'use strict';
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.css';
+
+console.log(flatpickr);
 
 $(function () {
   $('input[name="booking_type"]').on('change', function () {

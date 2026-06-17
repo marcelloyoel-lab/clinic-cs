@@ -20,7 +20,7 @@
     </p>
   </div>
 
-  <a href=""
+  <a href="{{ route('dashboard-schedule') }}"
      class="btn btn-text-secondary p-0">
     <i class="bx bx-arrow-back me-1"></i>
     Back to Appointments
@@ -254,8 +254,8 @@
         </label>
 
         <input
-          type="text"
-          class="form-control flatpickr-time">
+          type="time"
+          class="form-control">
 
       </div>
 
