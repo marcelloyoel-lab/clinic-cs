@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConsultationDiagnose extends Model
 {
+    protected $guarded = ['id'];
 
     public function consultation()
     {

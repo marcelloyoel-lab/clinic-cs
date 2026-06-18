@@ -23,6 +23,13 @@
   padding: 1.5rem;
 }
 
+.patient-box .flatpickr-input,
+.patient-box .form-control[readonly],
+.patient-box .form-select:disabled {
+  background-color: #f8f8fc;
+  opacity: 1;
+}
+
 .form-control[readonly] {
   background: #fff;
 }

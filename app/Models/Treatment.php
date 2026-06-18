@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Treatment extends Model
 {
+    protected $guarded = ['id'];
+    
     public function consultationTreatment()
     {
         return $this->hasMany(ConsultationTreatment::class);

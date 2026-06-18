@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConsultationPrescription extends Model
 {
+    protected $guarded = ['id'];
     public function medicine()
     {
         return $this->belongsTo(Medicine::class);

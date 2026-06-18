@@ -13,6 +13,8 @@ class Booking extends Model
         'status' => BookingStatus::class,
     ];
 
+    protected $guarded = ['id'];
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);

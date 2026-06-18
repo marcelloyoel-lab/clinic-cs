@@ -124,6 +124,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/new-schedule', [ScheduleController::class, 'index'])
         ->name('dashboard-new-schedule');
+    Route::post('/new-schedule', [ScheduleController::class, 'store'])
+        ->name('dashboard-schedule-store');
 
     Route::post('/logout', [LoginBasic::class, 'destroy'])
         ->name('logout');
