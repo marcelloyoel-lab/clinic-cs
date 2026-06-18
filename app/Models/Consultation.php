@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\ConsultationStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Consultation extends Model
 {
+    protected $casts = [
+        'status' => ConsultationStatus::class,
+    ];
+    
     public function booking()
     {
         return $this->belongsTo(Booking::class);
