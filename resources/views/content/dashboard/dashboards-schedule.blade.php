@@ -2,6 +2,10 @@
 
 @section('title', 'Dashboard - Schedule')
 
+<script>
+  window.todaySchedules = @json($todaySchedules);
+  window.upcomingSchedules = @json($upcomingSchedules);
+</script>
 @section('page-script')
   @vite('resources/assets/js/dashboards-schedule.js')
 @endsection
@@ -11,6 +15,7 @@
 @endsection
 
 @section('content')
+
 
 <div class="dashboard-schedule">
 
@@ -139,10 +144,21 @@
               placeholder="Filter patients..."
             >
 
-            <button class="btn btn-primary">
+            {{-- <a href="{{ route('dashboard-new-schedule') }}" class="btn btn-primary">
               <i class="bx bx-plus"></i>
               New Booking
-            </button>
+            </a> --}}
+            <div class="d-flex gap-2">
+              <a href=""
+                class="btn btn-label-secondary">
+                View All
+              </a>
+
+              <button class="btn btn-primary">
+                <i class="bx bx-plus"></i>
+                New Booking
+              </button>
+            </div>
 
           </div>
 
@@ -189,9 +205,10 @@
 
           <div class="header-actions">
 
-            <button class="btn btn-icon">
-              <i class="bx bx-filter-alt"></i>
-            </button>
+            <a href=""
+              class="btn btn-label-secondary">
+              View All
+            </a>
 
           </div>
 

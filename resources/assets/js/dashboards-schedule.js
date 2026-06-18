@@ -7,57 +7,39 @@ document.addEventListener('DOMContentLoaded', () => {
   // DATA SOURCE
   // ------------------------------------------------------------------
 
-  const todaysSchedule = [
-    {
-      id: '#1042',
-      name: 'Sarah Jenkins',
-      status: 'Arrived',
-      type: 'Consultation',
-      badgeStyle: 'background-color:#e6f4ea;color:#1e8e3e;border:1px solid rgba(30,142,62,.2);'
-    },
-    {
-      id: '#1043',
-      name: 'Michael Chang',
-      status: 'Waiting',
-      type: 'Follow-up',
-      badgeStyle: 'background-color:#fef7e0;color:#f29900;border:1px solid rgba(242,153,0,.2);'
-    },
-    {
-      id: '#1044',
-      name: 'Emily Davis',
-      status: 'Scheduled',
-      type: 'Vaccination',
-      badgeStyle: 'background-color:#d6e4f6;color:#101d2a;border:1px solid rgba(186,200,218,.3);'
-    },
-    {
-      id: '#1045',
-      name: 'Robert Wilson',
-      status: 'Delayed',
-      type: 'Consultation',
-      badgeStyle: 'background-color:#fce8e6;color:#d93025;border:1px solid rgba(217,48,37,.2);'
-    }
-  ];
+  // const todaysSchedule = [
+  //   {
+  //     id: '#1042',
+  //     name: 'Sarah Jenkins',
+  //     status: 'Arrived',
+  //     type: 'Consultation',
+  //     badgeStyle: 'background-color:#e6f4ea;color:#1e8e3e;border:1px solid rgba(30,142,62,.2);'
+  //   },
+  //   {
+  //     id: '#1043',
+  //     name: 'Michael Chang',
+  //     status: 'Waiting',
+  //     type: 'Follow-up',
+  //     badgeStyle: 'background-color:#fef7e0;color:#f29900;border:1px solid rgba(242,153,0,.2);'
+  //   },
+  //   {
+  //     id: '#1044',
+  //     name: 'Emily Davis',
+  //     status: 'Scheduled',
+  //     type: 'Vaccination',
+  //     badgeStyle: 'background-color:#d6e4f6;color:#101d2a;border:1px solid rgba(186,200,218,.3);'
+  //   },
+  //   {
+  //     id: '#1045',
+  //     name: 'Robert Wilson',
+  //     status: 'Delayed',
+  //     type: 'Consultation',
+  //     badgeStyle: 'background-color:#fce8e6;color:#d93025;border:1px solid rgba(217,48,37,.2);'
+  //   }
+  // ];
 
-  const upcomingSchedule = [
-    {
-      time: '09:00 AM',
-      name: 'Amanda Lee',
-      type: 'Annual Physical',
-      provider: 'Dr. Smith'
-    },
-    {
-      time: '09:30 AM',
-      name: 'David Miller',
-      type: 'Follow-up',
-      provider: 'Dr. Smith'
-    },
-    {
-      time: '10:15 AM',
-      name: 'Jessica Brown',
-      type: 'Consultation',
-      provider: 'Dr. Adams'
-    }
-  ];
+  const todaysSchedule = window.todaySchedules ?? [];
+  const upcomingSchedule = window.upcomingSchedules ?? [];
 
   // ------------------------------------------------------------------
   // DOM
@@ -106,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <tr class="align-middle">
 
           <td class="py-3 text-muted fw-medium">
-            ${row.id}
+            ${row.booking_code}
           </td>
 
           <td class="py-3 fw-semibold text-dark">
@@ -115,8 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <td class="py-3">
             <span
-              class="badge px-2 py-1 fw-semibold"
-              style="${row.badgeStyle}"
+              class="badge ${row.status_class} px-2 py-1 fw-semibold"
             >
               ${row.status}
             </span>
@@ -160,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
 
           <td class="py-3 text-dark">
-            ${row.name}
+            ${row.patient_name}
           </td>
 
           <td class="py-3 text-muted">
@@ -168,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
 
           <td class="py-3 text-muted">
-            ${row.provider}
+            ${row.doctor_name}
           </td>
 
           <td class="py-3 text-end">
