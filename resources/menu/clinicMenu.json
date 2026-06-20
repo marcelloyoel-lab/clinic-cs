@@ -19,35 +19,15 @@
       ]
     },
     {
-      "name": "Layouts",
-      "icon": "menu-icon icon-base bx bx-layout",
-      "slug": "layouts",
+      "name": "Booking",
+      "url": "/booking",
+      "icon": "menu-icon icon-base bx bx-calendar-check",
+      "slug": "booking",
       "submenu": [
         {
-          "url": "layouts/without-menu",
-          "name": "Without menu",
-          "slug": "layouts-without-menu"
-        },
-        {
-          "url": "layouts/without-navbar",
-          "name": "Without navbar",
-          "slug": "layouts-without-navbar"
-        },
-        {
-          "url": "layouts/container",
-          "name": "Container",
-          "slug": "layouts-container"
-        },
-        {
-          "url": "layouts/fluid",
-          "name": "Fluid",
-          "slug": "layouts-fluid"
-        },
-        {
-          "url": "layouts/blank",
-          "name": "Blank",
-          "slug": "layouts-blank",
-          "target": "_blank"
+          "url": "/booking-list",
+          "name": "Booking List",
+          "slug": "booking-list"
         }
       ]
     },

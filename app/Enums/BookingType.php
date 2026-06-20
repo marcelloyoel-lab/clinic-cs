@@ -16,4 +16,13 @@ enum BookingType: int
             self::REPURCHASING => 'Repurchasing',
         };
     }
+
+    public function badgeClass(): string
+    {
+        return match ($this) {
+            self::CONSULTATION => 'bg-label-info',
+            self::TREATMENT => 'bg-label-primary',
+            self::REPURCHASING => 'bg-label-success',
+        };
+    }
 }

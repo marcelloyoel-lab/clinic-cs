@@ -127,6 +127,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/new-schedule', [ScheduleController::class, 'store'])
         ->name('dashboard-schedule-store');
 
+    Route::get('/booking-list', [ScheduleController::class, 'list'])
+        ->name('booking-list');
+    Route::get('/bookings/data', [ScheduleController::class, 'data'])
+    ->name('booking.data');
+
     Route::post('/logout', [LoginBasic::class, 'destroy'])
         ->name('logout');
 });

@@ -1,0 +1,134 @@
+/* =========================
+   Summary Cards
+========================= */
+
+.booking-summary-card {
+  border: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 2px 12px rgba(67, 89, 113, 0.08);
+  transition: all 0.2s ease;
+}
+
+.booking-summary-card:hover {
+  transform: translateY(-3px);
+}
+
+.booking-summary-card .card-body {
+  padding: 1.75rem;
+  min-height: 112px;
+}
+
+.booking-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.booking-icon i {
+  font-size: 2rem;
+}
+
+.booking-icon-primary {
+  background: rgba(105, 108, 255, 0.15) !important;
+  color: #696cff !important;
+}
+
+.booking-icon-info {
+  background: rgba(3, 195, 236, 0.15) !important;
+  color: #03c3ec !important;
+}
+
+.booking-icon-success {
+  background: rgba(40, 199, 111, 0.15) !important;
+  color: #28c76f !important;
+}
+
+.booking-icon-danger {
+  background: rgba(255, 62, 29, 0.15) !important;
+  color: #ff3e1d !important;
+}
+
+.summary-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #697a8d;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.summary-number {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #566a7f;
+}
+
+/* =========================
+   Quick View
+========================= */
+
+.quick-view-card {
+  border: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 2px 12px rgba(67, 89, 113, 0.08);
+}
+
+.quick-view-card .card-body {
+  padding: 2rem;
+}
+
+.quick-view-item {
+  height: 56px;
+  padding: 0 1.25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 14px;
+  cursor: pointer;
+
+  color: #697a8d;
+  font-size: 1rem;
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+}
+
+.quick-view-item:hover {
+  background: #f5f5f9;
+}
+
+.quick-view-item.active {
+  background: rgba(105, 108, 255, 0.12);
+  color: #696cff;
+}
+
+.quick-view-badge {
+  min-width: 34px;
+  height: 26px;
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background: #ebeef0;
+  color: #697a8d;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.quick-view-item.active .quick-view-badge {
+  background: #696cff;
+  color: #fff;
+}

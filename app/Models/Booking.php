@@ -11,6 +11,7 @@ class Booking extends Model
     protected $casts = [
         'type' => BookingType::class,
         'status' => BookingStatus::class,
+        'date' => 'date',
     ];
 
     protected $guarded = ['id'];
