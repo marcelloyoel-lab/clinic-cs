@@ -4,10 +4,12 @@ const ENDPOINTS = {
   bookings: '/bookings/data'
 };
 
+const urlParams = new URLSearchParams(window.location.search);
+
 const state = {
   page: 1,
   search: '',
-  view: 'today',
+  view: urlParams.get('view') ?? 'today',
   types: [],
   statuses: []
 };

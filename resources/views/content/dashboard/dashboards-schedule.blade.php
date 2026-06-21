@@ -149,15 +149,15 @@
               New Booking
             </a> --}}
             <div class="d-flex gap-2">
-              <a href=""
+              <a href="{{ route('booking-list', ['view' => 'today']) }}"
                 class="btn btn-label-secondary">
                 View All
               </a>
 
-              <button class="btn btn-primary">
+              <a href="{{ route('dashboard-new-schedule') }}" class="btn btn-primary">
                 <i class="bx bx-plus"></i>
                 New Booking
-              </button>
+              </a>
             </div>
 
           </div>
@@ -205,7 +205,7 @@
 
           <div class="header-actions">
 
-            <a href=""
+            <a href="{{ route('booking-list', ['view' => 'upcoming']) }}"
               class="btn btn-label-secondary">
               View All
             </a>
