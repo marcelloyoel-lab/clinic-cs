@@ -122,10 +122,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [Analytics::class, 'index'])
         ->name('dashboard-schedule');
 
-    Route::get('/new-schedule', [ScheduleController::class, 'index'])
-        ->name('dashboard-new-schedule');
-    Route::post('/new-schedule', [ScheduleController::class, 'store'])
-        ->name('dashboard-schedule-store');
+    Route::get('/new-booking', [ScheduleController::class, 'index'])
+        ->name('booking-new');
+    Route::post('/new-booking', [ScheduleController::class, 'store'])
+        ->name('booking-schedule-store');
 
     Route::get('/booking-list', [ScheduleController::class, 'list'])
         ->name('booking-list');

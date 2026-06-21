@@ -10,11 +10,6 @@
           "url": "/dashboard",
           "name": "Schedule",
           "slug": "dashboard-schedule"
-        },
-        {
-          "url": "/new-schedule",
-          "name": "New Schedule",
-          "slug": "dashboard-new-schedule"
         }
       ]
     },
@@ -28,6 +23,11 @@
           "url": "/booking-list",
           "name": "Booking List",
           "slug": "booking-list"
+        },
+        {
+          "url": "/new-booking",
+          "name": "New Booking",
+          "slug": "booking-new"
         }
       ]
     },

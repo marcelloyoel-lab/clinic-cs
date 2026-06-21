@@ -154,7 +154,7 @@
                 View All
               </a>
 
-              <a href="{{ route('dashboard-new-schedule') }}" class="btn btn-primary">
+              <a href="{{ route('booking-new') }}" class="btn btn-primary">
                 <i class="bx bx-plus"></i>
                 New Booking
               </a>

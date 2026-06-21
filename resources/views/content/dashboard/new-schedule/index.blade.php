@@ -56,7 +56,7 @@
   </a>
 </div>
 
-<form action="{{ route('dashboard-schedule-store') }}" method="post">
+<form action="{{ route('booking-schedule-store') }}" method="post">
   @csrf
   <div class="card">
   
@@ -253,7 +253,7 @@
         <div class="col-12 col-lg-6">
           <label class="booking-card w-100">
   
-            <input
+            <input disabled
               type="radio"
               name="booking_type"
               value="treatment">
