@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\dashboard;
 
+use App\Enums\BookingStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class Analytics extends Controller
           'consultation.doctor:id,name'
       ])
       ->whereDate('date', today())
+      ->where('status', BookingStatus::BOOKED)
       ->orderBy('time')
       ->limit(4)
       ->get([

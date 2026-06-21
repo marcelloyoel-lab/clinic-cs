@@ -27,7 +27,11 @@
         {
           "url": "/new-booking",
           "name": "New Booking",
-          "slug": "booking-new"
+          "slug": "booking-new",
+          "roles": [
+            "Superadmin",
+            "CS"
+          ]
         }
       ]
     },
