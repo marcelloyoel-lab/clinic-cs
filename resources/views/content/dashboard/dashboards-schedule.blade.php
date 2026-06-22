@@ -153,11 +153,12 @@
                 class="btn btn-label-secondary">
                 View All
               </a>
-
+              @role('CS')
               <a href="{{ route('booking-new') }}" class="btn btn-primary">
                 <i class="bx bx-plus"></i>
                 New Booking
               </a>
+              @endrole
             </div>
 
           </div>

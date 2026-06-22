@@ -44,6 +44,31 @@ class User extends Authenticatable
         ];
     }
 
+    // Middleware Role
+
+    public function isRole(string $role): bool
+    {
+        return $this->role?->name === $role;
+    }
+
+    public function hasRole(array|string $roles): bool
+    {
+        $roles = (array) $roles;
+
+        return in_array($this->role?->name, $roles);
+    }
+
+    public function canAccessRole(array|string $roles): bool
+    {
+        if ($this->isRole('Superadmin')) {
+            return true;
+        }
+
+        return $this->hasRole($roles);
+    }
+    
+    // End of Middleware Role
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -54,8 +79,5 @@ class User extends Authenticatable
         return $this->hasMany(Consultation::class, 'doctor_id');
     }
 
-    public function isRole(string $role): bool
-    {
-        return $this->role?->name === $role;
-    }
+    
 }

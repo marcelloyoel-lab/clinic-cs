@@ -119,13 +119,19 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LoginBasic::class, 'destroy'])
+    ->name('logout');
+    
     Route::get('/dashboard', [Analytics::class, 'index'])
         ->name('dashboard-schedule');
 
-    Route::get('/new-booking', [ScheduleController::class, 'index'])
-        ->name('booking-new');
-    Route::post('/new-booking', [ScheduleController::class, 'store'])
-        ->name('booking-schedule-store');
+    Route::middleware(['auth', 'role:CS'])->group(function () {
+        Route::get('/new-booking', [ScheduleController::class, 'index'])
+            ->name('booking-new');
+        Route::post('/new-booking', [ScheduleController::class, 'store'])
+            ->name('booking-schedule-store');
+    });
+
 
     Route::get('/booking-list', [ScheduleController::class, 'list'])
         ->name('booking-list');
