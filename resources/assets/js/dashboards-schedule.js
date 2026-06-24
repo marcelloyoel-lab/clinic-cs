@@ -108,14 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
 
           <td class="py-3 text-end">
-
-            <button
-              type="button"
-              class="btn btn-sm btn-icon row-action"
-            >
-              <i class="bx bx-dots-vertical-rounded"></i>
-            </button>
-
+            ${renderActions(row.actions)}
           </td>
 
         </tr>
@@ -167,6 +160,51 @@ document.addEventListener('DOMContentLoaded', () => {
       `
       )
       .join('');
+  }
+
+  // ------------------------------------------------------------------
+  // ACTION DROPDOWN
+  // ------------------------------------------------------------------
+
+  function renderActions(actions = []) {
+    if (!actions.length) {
+      return '';
+    }
+
+    const items = actions
+      .map(
+        action => `
+          <li>
+            <button
+              type="button"
+              class="dropdown-item"
+              data-action="${action.key}"
+              data-id="${action.id}"
+            >
+              <i class="bx ${action.icon} me-2"></i>
+              ${action.label}
+            </button>
+          </li>
+        `
+      )
+      .join('');
+
+    return `
+      <div class="dropdown">
+        <button
+          type="button"
+          class="btn btn-sm btn-icon"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bx bx-dots-vertical-rounded"></i>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end">
+          ${items}
+        </ul>
+      </div>
+    `;
   }
 
   // ------------------------------------------------------------------

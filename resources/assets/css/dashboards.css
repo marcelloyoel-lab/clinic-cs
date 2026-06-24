@@ -270,6 +270,14 @@
   opacity: 1;
 }
 
+.table-card {
+  overflow: hidden;
+}
+
+.schedule-table {
+  --bs-table-border-color: transparent;
+}
+
 /* =======================================================
    CALENDAR
 ======================================================= */

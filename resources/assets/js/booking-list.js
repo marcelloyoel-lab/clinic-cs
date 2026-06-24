@@ -73,6 +73,16 @@ function bindEvents() {
   });
 }
 
+function renderStats(stats) {
+  document.querySelector('#totalBooking').textContent = stats.total;
+
+  document.querySelector('#pendingBooking').textContent = stats.pending;
+
+  document.querySelector('#completedBooking').textContent = stats.completed;
+
+  document.querySelector('#cancelledBooking').textContent = stats.cancelled;
+}
+
 async function loadBookings() {
   try {
     // const response = await fetch(
@@ -102,6 +112,7 @@ async function loadBookings() {
     const data = await response.json();
 
     renderCounts(data.counts);
+    renderStats(data.stats);
     renderTable(data.data);
     renderPagination(data);
   } catch (error) {
@@ -180,32 +191,54 @@ function renderTable(bookings) {
             </span>
           </td>
 
-          <td>
-            <div class="dropdown">
-              <button
-                class="btn p-0"
-                data-bs-toggle="dropdown">
-
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </button>
-
-              <div class="dropdown-menu dropdown-menu-end">
-                <a href="#" class="dropdown-item">
-                  <i class="bx bx-show me-2"></i>
-                  Detail
-                </a>
-
-                <a href="#" class="dropdown-item">
-                  <i class="bx bx-edit-alt me-2"></i>
-                  Edit
-                </a>
-              </div>
-            </div>
+          <td class="text-end">
+            ${renderActions(booking.actions)}
           </td>
         </tr>
       `
     )
     .join('');
+}
+
+function renderActions(actions = []) {
+  if (!actions.length) {
+    return '';
+  }
+
+  const items = actions
+    .map(
+      action => `
+        <li>
+          <a
+            href="${action.url}"
+            class="dropdown-item"
+            data-action="${action.key}"
+            data-id="${action.id}"
+          >
+            <i class="bx ${action.icon} me-2"></i>
+            ${action.label}
+          </a>
+        </li>
+      `
+    )
+    .join('');
+
+  return `
+    <div class="dropdown">
+      <button
+        type="button"
+        class="btn p-0"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="bx bx-dots-vertical-rounded"></i>
+      </button>
+
+      <ul class="dropdown-menu dropdown-menu-end">
+        ${items}
+      </ul>
+    </div>
+  `;
 }
 
 function renderPagination(data) {

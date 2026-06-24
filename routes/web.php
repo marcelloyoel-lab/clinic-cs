@@ -16,6 +16,7 @@ use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\cards\CardBasic;
+use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\dashboard\ScheduleController;
 use App\Http\Controllers\user_interface\Accordion;
 use App\Http\Controllers\user_interface\Alerts;
@@ -121,7 +122,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginBasic::class, 'destroy'])
     ->name('logout');
-    
+
     Route::get('/dashboard', [Analytics::class, 'index'])
         ->name('dashboard-schedule');
 
@@ -137,6 +138,26 @@ Route::middleware('auth')->group(function () {
         ->name('booking-list');
     Route::get('/bookings/data', [ScheduleController::class, 'data'])
     ->name('booking.data');
+
+    Route::get(
+        '/start-consultation/{consultation}',
+        [ConsultationController::class, 'start']
+    )->name('start-consultation');
+
+    Route::get(
+        '/edit-booking/{booking}',
+        [ScheduleController::class, 'edit']
+    )->name('edit-booking');
+
+    Route::get(
+        '/cancel-booking/{booking}',
+        [ScheduleController::class, 'cancel']
+    )->name('cancel-booking');
+
+    Route::get(
+        '/dummy-start-treatment/{booking}',
+        fn () => 'Coming Soon'
+    )->name('dummy-start-treatment');
 
     Route::post('/logout', [LoginBasic::class, 'destroy'])
         ->name('logout');

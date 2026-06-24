@@ -28,8 +28,8 @@
             TOTAL BOOKINGS
           </div>
 
-          <div class="summary-number">
-            {{ $stats['total'] }}
+          <div id="totalBooking" class="summary-number">
+            0
           </div>
         </div>
 
@@ -51,8 +51,8 @@
             PENDING
           </div>
 
-          <div class="summary-number">
-            {{ $stats['pending'] }}
+          <div id="pendingBooking" class="summary-number">
+            0
           </div>
         </div>
 
@@ -74,8 +74,8 @@
             COMPLETED
           </div>
 
-          <div class="summary-number">
-            {{ $stats['completed'] }}
+          <div id="completedBooking" class="summary-number">
+            0
           </div>
         </div>
 
@@ -97,8 +97,8 @@
             CANCELLED
           </div>
 
-          <div class="summary-number">
-            {{ $stats['cancelled'] }}
+          <div id="cancelledBooking" class="summary-number">
+            0
           </div>
         </div>
 
