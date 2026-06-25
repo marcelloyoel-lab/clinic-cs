@@ -205,22 +205,51 @@ function renderActions(actions = []) {
     return '';
   }
 
+  // const items = actions
+  //   .map(
+  //     action => `
+  //       <li>
+  //         <a
+  //           href="${action.url}"
+  //           class="dropdown-item"
+  //           data-action="${action.key}"
+  //           data-id="${action.id}"
+  //         >
+  //           <i class="bx ${action.icon} me-2"></i>
+  //           ${action.label}
+  //         </a>
+  //       </li>
+  //     `
+  //   )
+  //   .join('');
+
   const items = actions
-    .map(
-      action => `
+    .map(action => {
+      if (action.key === 'cancel-consultation') {
+        return `
         <li>
-          <a
-            href="${action.url}"
-            class="dropdown-item"
-            data-action="${action.key}"
-            data-id="${action.id}"
-          >
+          <button
+            type="button"
+            class="dropdown-item cancel-consultation-btn"
+            data-consultation-id="${action.id}">
             <i class="bx ${action.icon} me-2"></i>
             ${action.label}
-          </a>
+          </button>
         </li>
-      `
-    )
+      `;
+      }
+
+      return `
+      <li>
+        <a
+          href="${action.url}"
+          class="dropdown-item">
+          <i class="bx ${action.icon} me-2"></i>
+          ${action.label}
+        </a>
+      </li>
+    `;
+    })
     .join('');
 
   return `
@@ -341,3 +370,17 @@ function renderCounts(counts) {
 
   document.querySelector('#upcomingCount').textContent = counts.upcoming;
 }
+
+document.addEventListener('click', e => {
+  const button = e.target.closest('.cancel-consultation-btn');
+
+  if (!button) {
+    return;
+  }
+
+  document.querySelector('#cancelConsultationId').value = button.dataset.consultationId;
+
+  const modal = new bootstrap.Modal(document.getElementById('cancelConsultationModal'));
+
+  modal.show();
+});

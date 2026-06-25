@@ -38,7 +38,7 @@ class BookingActionService
                 'label' => 'Detail',
                 'icon' => 'bx-show',
                 'id' => $booking->consultation->id,
-                'url' => route('view-consultation', $booking->consultation),
+                'url' => route('start-consultation', $booking->consultation),
             ];
         }
 
@@ -54,11 +54,10 @@ class BookingActionService
 
         if ($this->canCancelBooking($booking, $user)) {
             $actions[] = [
-                'key' => 'cancel-booking',
+                'key' => 'cancel-consultation',
                 'label' => 'Cancel',
                 'icon' => 'bx-x-circle',
-                'id' => $booking->id,
-                'url' => route('cancel-booking', $booking),
+                'id' => $booking->consultation->id,
             ];
         }
 

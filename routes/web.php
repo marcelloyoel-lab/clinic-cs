@@ -139,10 +139,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/bookings/data', [ScheduleController::class, 'data'])
     ->name('booking.data');
 
-    Route::get(
-        '/start-consultation/{consultation}',
-        [ConsultationController::class, 'start']
-    )->name('start-consultation');
+    Route::middleware(['auth', 'role:Doctor'])->group(function () {
+        Route::get(
+            '/start-consultation/{consultation}',
+            [ConsultationController::class, 'start']
+        )->name('start-consultation');
+
+        Route::post('/start-consultation', [ConsultationController::class, 'store'])
+            ->name('input-consultation');
+
+        Route::put(
+            '/consultations/cancel',
+            [ConsultationController::class, 'cancel']
+        )->name('consultation-cancel');
+    });
+    
 
     Route::get(
         '/edit-booking/{booking}',

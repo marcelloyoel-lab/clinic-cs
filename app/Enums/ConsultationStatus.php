@@ -8,4 +8,6 @@ enum ConsultationStatus: int
     case ON_GOING = 1;
     case PAYMENT = 2;
     case FINISHED = 3;
+    case CANCELLED = -1;
+    
 }

@@ -1,0 +1,100 @@
+.card {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.375rem rgba(161, 172, 184, 0.12);
+}
+
+.patient-card {
+  height: 430px;
+}
+
+.diagnosis-card {
+  height: 430px;
+}
+
+.medicine-card {
+  height: 260px;
+}
+
+.treatment-card,
+.notes-card {
+  height: 260px;
+}
+
+.patient-card .card-body,
+.diagnosis-card .card-body,
+.medicine-card .card-body,
+.treatment-card .card-body,
+.notes-card .card-body {
+  overflow-y: auto;
+}
+
+.avatar-xl {
+  width: 72px;
+  height: 72px;
+}
+
+.avatar-xl i {
+  font-size: 2rem;
+}
+
+.diagnosis-row:not(:last-child),
+.medicine-row:not(:last-child),
+.treatment-row:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.medicine-row {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: #f8f7ff;
+  border: 1px solid #ebe9f1;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.page-header-badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.page-header-badge .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #03c3ec;
+}
+
+.patient-card .form-control[readonly] {
+  background-color: #f5f5f9;
+  border-color: transparent;
+  color: #697a8d;
+  font-weight: 500;
+  cursor: default;
+  box-shadow: none;
+}
+
+.patient-card .form-control[readonly]:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+@media (max-width: 991.98px) {
+  .patient-card,
+  .diagnosis-card,
+  .medicine-card,
+  .treatment-card,
+  .notes-card {
+    height: auto;
+  }
+
+  .medicine-card .card-body,
+  .treatment-card .card-body,
+  .notes-card .card-body,
+  .diagnosis-card .card-body {
+    max-height: 350px;
+  }
+}
