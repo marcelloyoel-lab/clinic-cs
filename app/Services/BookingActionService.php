@@ -42,6 +42,16 @@ class BookingActionService
             ];
         }
 
+        if ($this->canPayConsultation($booking, $user)) {
+            $actions[] = [
+                'key' => 'payment-consultation',
+                'label' => 'Payment',
+                'icon' => 'bx-credit-card',
+                'id' => $booking->consultation->id,
+                'url' => route('consultation-payment', $booking->consultation),
+            ];
+        }
+
         if ($this->canEditBooking($booking, $user)) {
             $actions[] = [
                 'key' => 'edit-booking',
@@ -153,5 +163,25 @@ class BookingActionService
             default =>
                 route('dummy-start-treatment', $booking),
         };
+    }
+
+    private function canPayConsultation(Booking $booking, User $user): bool
+    {
+        if (! $booking->consultation) {
+            return false;
+        }
+
+        // Only Cashier and Superadmin can process payments
+        if (
+            ! $user->hasRole('Cashier')
+            && ! $user->hasRole('Superadmin')
+        ) {
+            return false;
+        }
+
+        // Check if Booking status is "In Progress" (assuming 1 or your specific Enum state)
+        // AND Consultation status is "Payment"
+        return $booking->status === \App\Enums\BookingStatus::IN_PROGRESS // adjust to match your exact enum property/value
+            && $booking->consultation->status === ConsultationStatus::PAYMENT; // adjust to match your exact enum property/value
     }
 }

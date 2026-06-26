@@ -84,4 +84,37 @@ class ConsultationController extends Controller
                 ->with('error', $e->getMessage());
         }
     }
+
+    public function payment(Consultation $consultation)
+    {
+        // Eager load all required relationships to prevent N+1 queries
+        $consultation->load([
+            'booking:id,date,time',
+            'consultationDiagnose',
+            'consultationPrescription.medicine:id,name,price', // Assuming medicine table has 'price'
+            'consultationTreatment.treatment:id,name,price'    // Assuming treatment table has 'price'
+        ]);
+
+        // Calculate subtotals
+        $prescriptionTotal = $consultation->consultationPrescription->sum(function ($prescription) {
+            // Multiply medicine price by prescription quantity if applicable
+            return ($prescription->medicine?->price ?? 0) * ($prescription->quantity ?? 1);
+        });
+
+        $treatmentTotal = $consultation->consultationTreatment->sum(function ($consultationTreatment) {
+            return ($consultationTreatment->treatment?->price ?? 0) * ($consultationTreatment->quantity ?? 1);
+        });
+
+        // You can set a base consultation fee if your system requires one
+        $consultationFee = 750000; 
+
+        $grandTotal = $consultationFee + $prescriptionTotal + $treatmentTotal;
+
+        return view('cashier.payment', compact(
+            'consultation',
+            'prescriptionTotal',
+            'treatmentTotal',
+            'grandTotal'
+        ));
+    }
 }

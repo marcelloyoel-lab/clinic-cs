@@ -1,0 +1,314 @@
+/* ==========================================================
+   CASHIER PAYMENT
+========================================================== */
+/* .row {
+  outline: 2px solid red;
+} */
+.card {
+  border: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(67, 89, 113, 0.08);
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 30px rgba(67, 89, 113, 0.1);
+}
+
+/* ==========================================================
+   CARD HEADER & FOOTER
+========================================================== */
+
+.payment-summary .card-header {
+  border-bottom: none;
+  padding: 2rem 2rem 0.75rem;
+}
+
+.payment-summary .card-body {
+  padding: 0 2rem 2rem;
+}
+
+.payment-divider {
+  margin: 0 0 1.75rem;
+  opacity: 1;
+  border-color: #eceef1;
+}
+
+.card-header {
+  background: #fff;
+  border-bottom: 1px solid #eceef1;
+  padding: 1.75rem 1.75rem 2rem;
+}
+
+.card-header h5 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  background: #fff;
+  border-top: 1px solid #eceef1;
+  padding: 1.5rem 1.75rem;
+}
+
+/* ==========================================================
+   PATIENT CARD
+========================================================== */
+
+.avatar-xl {
+  width: 72px;
+  height: 72px;
+}
+
+.avatar-xl .avatar-initial {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  font-size: 2rem;
+}
+
+.patient-info small {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.05rem;
+  color: #8592a3;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.patient-info h4 {
+  margin-bottom: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.patient-divider {
+  border-left: 1px solid #eceef1;
+  padding-left: 2rem;
+}
+
+/* ==========================================================
+   BADGES
+========================================================== */
+
+.badge {
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+}
+
+.bg-label-primary,
+.bg-label-info,
+.bg-label-secondary,
+.bg-label-success {
+  border-radius: 999px;
+}
+
+.table .badge {
+  font-size: 0.72rem;
+  letter-spacing: 0.04rem;
+  padding: 0.45rem 0.95rem;
+}
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background: #fbfbfd;
+  color: #8592a3;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid #eceef1;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding-top: 1.45rem;
+  padding-bottom: 1.45rem;
+  vertical-align: middle;
+  font-size: 1rem;
+}
+
+.table tbody tr {
+  transition: 0.2s;
+}
+
+.table tbody tr:hover {
+  background: rgba(105, 108, 255, 0.035);
+}
+
+.table tbody td strong {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.table tbody td.text-primary {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* ==========================================================
+   PAYMENT SUMMARY
+========================================================== */
+
+.payment-summary .card-body {
+  padding: 2rem;
+}
+
+.payment-summary .summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  font-size: 1.05rem;
+}
+
+.payment-summary hr {
+  margin: 1.6rem 0;
+}
+
+.payment-summary .grand-total-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #696cff;
+  letter-spacing: 0.05rem;
+}
+
+.payment-summary .grand-total {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #696cff;
+  line-height: 1;
+}
+
+.payment-summary .currency {
+  font-size: 1rem;
+  color: #8592a3;
+  margin-left: 0.35rem;
+}
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+.payment-actions {
+  margin-top: 4rem;
+}
+
+.btn {
+  border-radius: 16px;
+  font-weight: 600;
+  padding: 0.8rem 1.6rem;
+  transition: 0.2s;
+}
+
+.btn-primary {
+  box-shadow: 0 8px 18px rgba(105, 108, 255, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+  border-width: 2px;
+}
+
+#processPaymentBtn {
+  min-width: 230px;
+}
+
+#processPaymentBtn i,
+.btn-outline-primary i {
+  margin-right: 0.45rem;
+}
+
+/* ==========================================================
+   INVOICE BADGE
+========================================================== */
+
+.invoice-badge {
+  border-radius: 999px;
+  padding: 0.65rem 1.2rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================
+   NOTE
+========================================================== */
+
+.card-footer em {
+  color: #697a8d;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 991.98px) {
+  .table {
+    min-width: 760px;
+  }
+
+  .patient-divider {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 1rem;
+  }
+
+  .payment-summary {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .card {
+    border-radius: 18px;
+  }
+
+  .card-header {
+    padding: 1.25rem;
+  }
+
+  .card-body,
+  .card-footer {
+    padding: 1.25rem;
+  }
+
+  .patient-info h4 {
+    font-size: 1.5rem;
+  }
+
+  .avatar-xl {
+    width: 60px;
+    height: 60px;
+  }
+
+  .grand-total {
+    font-size: 2.3rem !important;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .d-flex.justify-content-end {
+    flex-direction: column;
+  }
+}

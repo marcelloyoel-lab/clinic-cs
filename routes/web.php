@@ -153,6 +153,16 @@ Route::middleware('auth')->group(function () {
             [ConsultationController::class, 'cancel']
         )->name('consultation-cancel');
     });
+
+    Route::middleware(['auth', 'role:Cashier'])->group(function () {
+        Route::get(
+            '/consultation-payment/{consultation}',
+            [ConsultationController::class, 'payment']
+        )->name('consultation-payment');
+
+        Route::post('/consultation-payment', [ConsultationController::class, 'payment_submit'])
+            ->name('payment-consultation');
+    });
     
 
     Route::get(
