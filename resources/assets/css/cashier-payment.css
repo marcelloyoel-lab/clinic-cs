@@ -110,10 +110,51 @@
   border-radius: 999px;
 }
 
-.table .badge {
-  font-size: 0.72rem;
+/* ==========================================================
+   BILLING ITEM TYPE
+========================================================== */
+
+.item-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  padding: 0.45rem 0.85rem;
+  border-radius: 12px;
+
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.04rem;
-  padding: 0.45rem 0.95rem;
+
+  border-left: 4px solid transparent;
+}
+
+.item-type i {
+  font-size: 1rem;
+}
+
+/* Consultation */
+
+.item-type.consultation {
+  background: #e9f7ff;
+  color: #0091d5;
+  border-left-color: #00b8ff;
+}
+
+/* Medicine */
+
+.item-type.medicine {
+  background: #f3f4f6;
+  color: #667085;
+  border-left-color: #98a2b3;
+}
+
+/* Treatment */
+
+.item-type.treatment {
+  background: #eefbf3;
+  color: #12a150;
+  border-left-color: #22c55e;
 }
 
 /* ==========================================================
@@ -310,5 +351,252 @@
 
   .d-flex.justify-content-end {
     flex-direction: column;
+  }
+}
+
+/* ==========================================================
+   PAYMENT MODAL
+========================================================== */
+
+#paymentMethodModal .modal-content {
+  border-radius: 20px;
+}
+
+#paymentMethodModal .modal-header {
+  padding: 1.5rem 1.75rem;
+  border-bottom: 1px solid #eceef1;
+}
+
+#paymentMethodModal .modal-body {
+  padding: 1.75rem;
+}
+
+#paymentMethodModal .modal-footer {
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid #eceef1;
+}
+
+/* ==========================================================
+   PAYMENT SUMMARY
+========================================================== */
+
+.payment-modal-summary {
+  background: #f8f9fc;
+  border: 1px solid #eceef1;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-row:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.summary-row span {
+  color: #697a8d;
+  font-weight: 500;
+}
+
+.summary-row strong {
+  font-weight: 700;
+}
+
+/* ==========================================================
+   PAYMENT METHOD CARD
+========================================================== */
+
+.payment-option {
+  display: block;
+  cursor: pointer;
+  margin: 0;
+}
+
+.payment-radio {
+  display: none;
+}
+
+/* .payment-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  height: 100%;
+
+  padding: 1.25rem;
+
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+
+  transition: all 0.25s ease;
+
+  background: #fff;
+} */
+
+.payment-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  height: 100%;
+  min-height: 140px; /* add this */
+
+  padding: 1.25rem;
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  background: #fff;
+}
+
+.payment-card > div:last-child {
+  flex: 1;
+}
+
+.payment-card:hover {
+  border-color: #696cff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(67, 89, 113, 0.08);
+}
+
+.payment-radio:checked + .payment-card {
+  border-color: #696cff;
+  background: rgba(105, 108, 255, 0.05);
+  box-shadow: 0 10px 25px rgba(105, 108, 255, 0.18);
+}
+
+.payment-card h5 {
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.payment-card small {
+  line-height: 1.5;
+  display: block;
+}
+
+/* ==========================================================
+   PAYMENT ICON
+========================================================== */
+
+.payment-icon {
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 14px;
+
+  flex-shrink: 0;
+}
+
+.payment-icon i {
+  font-size: 1.6rem;
+}
+
+/* ==========================================================
+   PAYMENT DETAIL
+========================================================== */
+
+.payment-method-detail {
+  animation: fadeInPayment 0.25s ease;
+}
+
+.payment-method-detail .alert {
+  border: 0;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.payment-method-detail h6 {
+  font-weight: 700;
+}
+
+.payment-method-detail .badge {
+  font-size: 0.72rem;
+}
+
+/* ==========================================================
+   MODAL BUTTON
+========================================================== */
+
+#continuePaymentBtn {
+  min-width: 150px;
+}
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+@keyframes fadeInPayment {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE - PAYMENT MODAL
+========================================================== */
+
+@media (max-width: 768px) {
+  /* ---------- Payment Card ---------- */
+
+  .payment-card {
+    min-height: 110px;
+    padding: 1rem;
+  }
+
+  .payment-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .payment-icon i {
+    font-size: 1.3rem;
+  }
+
+  /* ---------- Summary ---------- */
+
+  .summary-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  /* ---------- Modal ---------- */
+
+  #paymentMethodModal .modal-dialog {
+    margin: 0.75rem;
+  }
+
+  #paymentMethodModal .modal-content {
+    border-radius: 18px;
+  }
+
+  /* ---------- Footer ---------- */
+
+  #paymentMethodModal .modal-footer {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1.25rem;
+  }
+
+  #paymentMethodModal .modal-footer .btn {
+    width: 100%;
+    margin: 0;
+    min-height: 48px;
   }
 }

@@ -1,25 +1,86 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const processBtn = document.getElementById('processPaymentBtn');
+  // ======================================================
+  // ELEMENTS
+  // ======================================================
 
-  if (!processBtn) return;
+  const processPaymentBtn = document.getElementById('processPaymentBtn');
+  const paymentMethodForm = document.getElementById('paymentMethodForm');
 
-  processBtn.addEventListener('click', () => {
-    processBtn.disabled = true;
+  const cashRadio = document.getElementById('paymentCash');
+  const midtransRadio = document.getElementById('paymentMidtrans');
 
-    const originalHtml = processBtn.innerHTML;
+  const cashSection = document.getElementById('cashSection');
+  const midtransSection = document.getElementById('midtransSection');
 
-    processBtn.innerHTML = `
-            <span class="spinner-border spinner-border-sm me-2"></span>
-            Processing...
-        `;
+  const paymentModal = new bootstrap.Modal(document.getElementById('paymentMethodModal'));
 
-    setTimeout(() => {
-      processBtn.disabled = false;
-      processBtn.innerHTML = originalHtml;
+  // ======================================================
+  // OPEN MODAL
+  // ======================================================
 
-      alert('Payment processed successfully.');
-    }, 1200);
+  processPaymentBtn.addEventListener('click', () => {
+    paymentMethodForm.reset();
+
+    cashSection.classList.add('d-none');
+    midtransSection.classList.add('d-none');
+
+    paymentModal.show();
+  });
+
+  // ======================================================
+  // PAYMENT METHOD CHANGE
+  // ======================================================
+
+  function updatePaymentMethod() {
+    cashSection.classList.add('d-none');
+    midtransSection.classList.add('d-none');
+
+    if (cashRadio.checked) {
+      cashSection.classList.remove('d-none');
+    }
+
+    if (midtransRadio.checked) {
+      midtransSection.classList.remove('d-none');
+    }
+  }
+
+  cashRadio.addEventListener('change', updatePaymentMethod);
+  midtransRadio.addEventListener('change', updatePaymentMethod);
+
+  // ======================================================
+  // FORM SUBMIT
+  // ======================================================
+
+  paymentMethodForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+
+    if (!paymentMethod) {
+      alert('Please select a payment method.');
+
+      return;
+    }
+
+    switch (paymentMethod.value) {
+      case 'cash':
+        console.log('Cash payment selected.');
+
+        // TODO:
+        // Submit Cash Payment
+
+        break;
+
+      case 'midtrans':
+        console.log('Midtrans payment selected.');
+
+        // TODO:
+        // Request Snap Token
+        // snap.pay(token);
+
+        break;
+    }
   });
 });

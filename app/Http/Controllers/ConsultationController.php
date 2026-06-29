@@ -89,7 +89,8 @@ class ConsultationController extends Controller
     {
         // Eager load all required relationships to prevent N+1 queries
         $consultation->load([
-            'booking:id,date,time',
+            'patient:id,name',
+            'booking:id,date,time,booking_code',
             'consultationDiagnose',
             'consultationPrescription.medicine:id,name,price', // Assuming medicine table has 'price'
             'consultationTreatment.treatment:id,name,price'    // Assuming treatment table has 'price'
@@ -110,11 +111,19 @@ class ConsultationController extends Controller
 
         $grandTotal = $consultationFee + $prescriptionTotal + $treatmentTotal;
 
+        $invoiceNumber = sprintf(
+            'INV-%s-%s',
+            $consultation->booking->booking_code,
+            $consultation->patient->id
+        );
+
         return view('cashier.payment', compact(
             'consultation',
             'prescriptionTotal',
             'treatmentTotal',
-            'grandTotal'
+            'grandTotal',
+            'consultationFee',
+            'invoiceNumber'
         ));
     }
 }
