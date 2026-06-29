@@ -26,4 +26,8 @@ class Booking extends Model
         return $this->hasOne(Consultation::class);
     }
 
+    public function invoice(){
+        return $this->hasOne(Invoice::class);
+    }
+
 }

@@ -79,5 +79,17 @@ class User extends Authenticatable
         return $this->hasMany(Consultation::class, 'doctor_id');
     }
 
+    public function invoice(){
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function invoicePayment(){
+        return $this->hasMany(InvoicePayment::class);
+    }
+
+    public function treatmentSession(){
+        return $this->hasMany(TreatmentSession::class);
+    }
+
     
 }

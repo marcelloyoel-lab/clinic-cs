@@ -12,4 +12,8 @@ class Medicine extends Model
     {
         return $this->hasMany(ConsultationPrescription::class);
     }
+
+    public function invoiceItem(){
+        return $this->hasMany(InvoiceItem::class);
+    }
 }

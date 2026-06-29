@@ -13,4 +13,8 @@ class Treatment extends Model
     {
         return $this->hasMany(ConsultationTreatment::class);
     }
+
+    public function invoiceItem(){
+        return $this->hasMany(InvoiceItem::class);
+    }
 }

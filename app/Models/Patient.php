@@ -39,4 +39,8 @@ class Patient extends Model
             ->where('status', ConsultationStatus::FINISHED)
             ->latestOfMany();
     }
+
+    public function invoice(){
+        return $this->hasMany(Invoice::class);
+    }
 }
