@@ -243,4 +243,80 @@
 
 </div>
 
+<div
+    class="modal fade"
+    id="cancelConsultationModal"
+    tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <form
+            action="{{ route('consultation-cancel') }}"
+            method="POST"
+            class="modal-content">
+
+            @csrf
+            @method('PUT')
+
+            <input
+                type="hidden"
+                name="consultation_id"
+                id="cancelConsultationId">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cancel Consultation
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="alert alert-warning">
+                    Please provide a cancellation reason.
+                </div>
+
+                <div>
+                    <label class="form-label">
+                        Reason
+                    </label>
+
+                    <textarea
+                        name="cancel_reason"
+                        class="form-control"
+                        maxlength="300"
+                        rows="4"
+                        required></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-label-secondary"
+                    data-bs-dismiss="modal">
+                    Close
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-danger">
+                    Confirm Cancellation
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 @endsection

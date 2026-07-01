@@ -172,21 +172,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const items = actions
-      .map(
-        action => `
+      .map(action => {
+        if (action.key === 'cancel-consultation') {
+          return `
+            <li>
+              <button
+                type="button"
+                class="dropdown-item cancel-consultation-btn"
+                data-consultation-id="${action.id}">
+                <i class="bx ${action.icon} me-2"></i>
+                ${action.label}
+              </button>
+            </li>
+          `;
+        }
+
+        return `
           <li>
-            <button
-              type="button"
-              class="dropdown-item"
-              data-action="${action.key}"
-              data-id="${action.id}"
-            >
+            <a
+              href="${action.url}"
+              class="dropdown-item">
               <i class="bx ${action.icon} me-2"></i>
               ${action.label}
-            </button>
+            </a>
           </li>
-        `
-      )
+        `;
+      })
       .join('');
 
     return `
@@ -195,8 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
           type="button"
           class="btn btn-sm btn-icon"
           data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
+          aria-expanded="false">
           <i class="bx bx-dots-vertical-rounded"></i>
         </button>
 
@@ -265,4 +275,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     calendarContainer.innerHTML = html;
   }
+
+  document.addEventListener('click', e => {
+    const button = e.target.closest('.cancel-consultation-btn');
+
+    if (!button) {
+      return;
+    }
+
+    document.querySelector('#cancelConsultationId').value = button.dataset.consultationId;
+
+    const modal = new bootstrap.Modal(document.getElementById('cancelConsultationModal'));
+
+    modal.show();
+  });
 });
