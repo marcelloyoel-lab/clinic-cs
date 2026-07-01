@@ -14,13 +14,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const cashSection = document.getElementById('cashSection');
   const midtransSection = document.getElementById('midtransSection');
 
-  const paymentModal = new bootstrap.Modal(document.getElementById('paymentMethodModal'));
+  const continueBtn = document.getElementById('continuePaymentBtn');
+
+  const paymentModalElement = document.getElementById('paymentMethodModal');
+  const paymentModal = new bootstrap.Modal(paymentModalElement);
+
+  let paymentInProgress = false;
 
   // ======================================================
   // OPEN MODAL
   // ======================================================
 
   processPaymentBtn.addEventListener('click', () => {
+    if (paymentInProgress) {
+      return;
+    }
+
     paymentMethodForm.reset();
 
     cashSection.classList.add('d-none');
@@ -30,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ======================================================
-  // PAYMENT METHOD CHANGE
+  // PAYMENT METHOD
   // ======================================================
 
   function updatePaymentMethod() {
@@ -50,37 +59,127 @@ document.addEventListener('DOMContentLoaded', () => {
   midtransRadio.addEventListener('change', updatePaymentMethod);
 
   // ======================================================
-  // FORM SUBMIT
+  // SUBMIT
   // ======================================================
 
-  paymentMethodForm.addEventListener('submit', function (e) {
+  paymentMethodForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+    const selectedPayment = document.querySelector('input[name="payment_method"]:checked');
 
-    if (!paymentMethod) {
+    if (!selectedPayment) {
       alert('Please select a payment method.');
 
       return;
     }
 
-    switch (paymentMethod.value) {
-      case 'cash':
-        console.log('Cash payment selected.');
+    continueBtn.disabled = true;
 
-        // TODO:
-        // Submit Cash Payment
+    const originalHtml = continueBtn.innerHTML;
 
-        break;
+    continueBtn.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Processing...
+        `;
 
-      case 'midtrans':
-        console.log('Midtrans payment selected.');
+    try {
+      const response = await fetch(paymentMethodForm.action, {
+        method: paymentMethodForm.method,
 
-        // TODO:
-        // Request Snap Token
-        // snap.pay(token);
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
 
-        break;
+          Accept: 'application/json'
+        },
+
+        body: new FormData(paymentMethodForm)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message ?? 'Something went wrong.');
+      }
+
+      // ======================================================
+      // CASH
+      // ======================================================
+
+      if (result.payment_method === 'cash') {
+        paymentModal.hide();
+
+        alert(result.message);
+
+        return;
+      }
+
+      // ======================================================
+      // MIDTRANS
+      // ======================================================
+
+      paymentModal.hide();
+
+      paymentInProgress = true;
+
+      processPaymentBtn.disabled = true;
+      continueBtn.disabled = true;
+
+      paymentModal.hide();
+
+      snap.pay(result.snap_token, {
+        onSuccess: function (result) {
+          paymentInProgress = false;
+          alert('Payment Success');
+
+          setTimeout(() => {
+            window.location.href = '/booking-list';
+          }, 1500);
+        },
+
+        onPending: function (result) {
+          paymentInProgress = false;
+
+          processPaymentBtn.disabled = false;
+          continueBtn.disabled = false;
+
+          alert('Waiting for customer payment.');
+        },
+
+        onError: function (result) {
+          paymentInProgress = false;
+
+          processPaymentBtn.disabled = false;
+          continueBtn.disabled = false;
+
+          alert('Payment Failed.');
+        },
+
+        onClose: function () {
+          paymentInProgress = false;
+
+          processPaymentBtn.disabled = false;
+          continueBtn.disabled = false;
+
+          alert('Payment popup was closed.');
+        }
+      });
+    } catch (error) {
+      console.error(error);
+
+      alert(error.message);
+    } finally {
+      continueBtn.disabled = false;
+
+      continueBtn.innerHTML = originalHtml;
     }
+
+    window.addEventListener('beforeunload', function (e) {
+      if (!paymentInProgress) {
+        return;
+      }
+
+      e.preventDefault();
+      e.returnValue = '';
+    });
   });
 });

@@ -44,7 +44,9 @@ use App\Http\Controllers\form_elements\BasicInput;
 use App\Http\Controllers\form_elements\InputGroups;
 use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
+use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
+use Illuminate\Support\Facades\Log;
 
 // Main Page Route
 // Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
@@ -160,8 +162,10 @@ Route::middleware('auth')->group(function () {
             [ConsultationController::class, 'payment']
         )->name('consultation-payment');
 
-        Route::post('/consultation-payment', [ConsultationController::class, 'payment_submit'])
-            ->name('payment-consultation');
+        Route::post(
+            '/consultation-payment/{consultation}',
+            [ConsultationController::class, 'payment_submit']
+        )->name('payment-consultation');
     });
     
 

@@ -5,21 +5,41 @@ namespace App\Enums;
 enum PaymentMethod: int
 {
     case CASH = 0;
-    case BANK_TRANSFER = 1;
-    case QRIS = 2;
-    case DEBIT_CARD = 3;
+
+    // QR
+    case QRIS = 1;
+
+    // E-Wallet
+    case GOPAY = 2;
+    case SHOPEEPAY = 3;
+
+    // Cards
     case CREDIT_CARD = 4;
-    case EWALLET = 5;
+
+    // Virtual Account
+    case BCA_VA = 5;
+    case BNI_VA = 6;
+    case BRI_VA = 7;
+    case MANDIRI_BILL = 8;
+    case PERMATA_VA = 9;
 
     public function label(): string
     {
         return match ($this) {
             self::CASH => 'Cash',
-            self::BANK_TRANSFER => 'Bank Transfer',
+
             self::QRIS => 'QRIS',
-            self::DEBIT_CARD => 'Debit Card',
+
+            self::GOPAY => 'GoPay',
+            self::SHOPEEPAY => 'ShopeePay',
+
             self::CREDIT_CARD => 'Credit Card',
-            self::EWALLET => 'E-Wallet',
+
+            self::BCA_VA => 'BCA Virtual Account',
+            self::BNI_VA => 'BNI Virtual Account',
+            self::BRI_VA => 'BRI Virtual Account',
+            self::MANDIRI_BILL => 'Mandiri Bill',
+            self::PERMATA_VA => 'Permata Virtual Account',
         };
     }
 
@@ -27,11 +47,19 @@ enum PaymentMethod: int
     {
         return match ($this) {
             self::CASH => 'bg-label-success',
-            self::BANK_TRANSFER => 'bg-label-primary',
+
             self::QRIS => 'bg-label-info',
-            self::DEBIT_CARD => 'bg-label-warning',
+
+            self::GOPAY,
+            self::SHOPEEPAY => 'bg-label-secondary',
+
             self::CREDIT_CARD => 'bg-label-danger',
-            self::EWALLET => 'bg-label-secondary',
+
+            self::BCA_VA,
+            self::BNI_VA,
+            self::BRI_VA,
+            self::MANDIRI_BILL,
+            self::PERMATA_VA => 'bg-label-primary',
         };
     }
 }

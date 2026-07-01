@@ -12,10 +12,6 @@ class InvoiceItem extends Model
         return $this->belongsTo(Invoice::class);
     }
 
-    public function consultation(){
-        return $this->belongsTo(Consultation::class);
-    }
-
     public function medicine(){
         return $this->belongsTo(Medicine::class);
     }

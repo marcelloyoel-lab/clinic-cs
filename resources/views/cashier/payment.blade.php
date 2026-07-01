@@ -243,7 +243,12 @@
                 </button>
             </div>
 
-            <form id="paymentMethodForm">
+            <form
+              id="paymentMethodForm"
+              action="{{ route('payment-consultation', $consultation) }}"
+              method="POST">
+
+                @csrf
 
                 <div class="modal-body">
 
@@ -488,5 +493,8 @@
     </div>
 
 </div>
-  
+<script
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('midtrans.client_key') }}">
+</script>
 @endsection

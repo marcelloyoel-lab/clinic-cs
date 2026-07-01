@@ -12,9 +12,17 @@ use App\Models\Treatment;
 use App\Services\ConsultationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Services\PaymentService;
 
 class ConsultationController extends Controller
 {
+    protected PaymentService $paymentService;
+
+    public function __construct(PaymentService $paymentService)
+    {
+        $this->paymentService = $paymentService;
+    }
+
     public function start($id){
         $consultation = Consultation::with([
             'patient.lastVisit',
@@ -96,34 +104,99 @@ class ConsultationController extends Controller
             'consultationTreatment.treatment:id,name,price'    // Assuming treatment table has 'price'
         ]);
 
-        // Calculate subtotals
-        $prescriptionTotal = $consultation->consultationPrescription->sum(function ($prescription) {
-            // Multiply medicine price by prescription quantity if applicable
-            return ($prescription->medicine?->price ?? 0) * ($prescription->quantity ?? 1);
-        });
+        $payment = $this->paymentService->preparePayment($consultation);
 
-        $treatmentTotal = $consultation->consultationTreatment->sum(function ($consultationTreatment) {
-            return ($consultationTreatment->treatment?->price ?? 0) * ($consultationTreatment->quantity ?? 1);
-        });
+        return view('cashier.payment', [
+            'consultation' => $consultation,
+            ...$payment,
+        ]);
+    }
 
-        // You can set a base consultation fee if your system requires one
-        $consultationFee = 750000; 
+    public function payment_submit(
+        Request $request,
+        Consultation $consultation
+    ) {
+        try {
 
-        $grandTotal = $consultationFee + $prescriptionTotal + $treatmentTotal;
+            $validated = $request->validate([
+                'payment_method' => 'required|in:cash,midtrans',
+            ]);
 
-        $invoiceNumber = sprintf(
-            'INV-%s-%s',
-            $consultation->booking->booking_code,
-            $consultation->patient->id
-        );
+            $consultation->load([
+                'patient:id,name',
+                'booking:id,date,time,booking_code',
+                'consultationPrescription.medicine:id,name,price',
+                'consultationTreatment.treatment:id,name,price',
+            ]);
 
-        return view('cashier.payment', compact(
-            'consultation',
-            'prescriptionTotal',
-            'treatmentTotal',
-            'grandTotal',
-            'consultationFee',
-            'invoiceNumber'
-        ));
+            /*
+            |--------------------------------------------------------------------------
+            | CASH
+            |--------------------------------------------------------------------------
+            */
+
+            if ($validated['payment_method'] === 'cash') {
+
+                // TODO:
+                // Save payment to database
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Cash payment is not implemented yet.',
+                ]);
+            }
+
+            $consultation->update([
+                'cashier_id' => auth()->id(),
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | MIDTRANS
+            |--------------------------------------------------------------------------
+            */
+
+            $snapToken = $this->paymentService
+                ->createMidtransPayment($consultation);
+
+            return response()->json([
+                'success' => true,
+                'payment_method' => 'midtrans',
+                'snap_token' => $snapToken,
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            Log::warning('Payment validation failed.', [
+                'consultation_id' => $consultation->id,
+                'user_id' => auth()->id(),
+                'errors' => $e->errors(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed.',
+                'errors' => $e->errors(),
+            ], 422);
+
+        } catch (\Throwable $e) {
+
+            Log::error('Failed to initiate payment.', [
+                'consultation_id' => $consultation->id,
+                'booking_id' => $consultation->booking_id,
+                'user_id' => auth()->id(),
+                'exception' => get_class($e),
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to process payment. Please try again.',
+            ], 500);
+
+        }
     }
 }
