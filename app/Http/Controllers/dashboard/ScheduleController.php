@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\dashboard;
 
+use App\Enums\ConsultationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreScheduleRequest;
+use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Booking;
 use App\Models\Patient;
 use App\Models\User;
@@ -13,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Services\BookingActionService;
+use App\Services\ScheduleUpdateService;
 
 class ScheduleController extends Controller
 {
@@ -261,5 +264,62 @@ class ScheduleController extends Controller
             'total' => $bookings->total(),
             'data' => $bookings->items(),
         ]);
+    }
+
+    public function edit(Booking $booking)
+    {
+        $booking->load([
+            'consultation.patient',
+            'consultation.doctor',
+        ]);
+
+        // Prevent editing once consultation has started
+        abort_if(
+            $booking->consultation->status !== ConsultationStatus::DRAFT,
+            404
+        );
+
+        $doctors = User::where('role_id', 4)
+            ->select('id', 'name')
+            ->get();
+
+        return view(
+            'content.dashboard.edit-schedule.index',
+            compact('booking', 'doctors')
+        );
+    }
+
+    public function update(
+        UpdateScheduleRequest $request,
+        Booking $booking,
+        ScheduleUpdateService $scheduleService
+    ) {
+        try {
+
+            $scheduleService->update(
+                $booking,
+                $request->validated()
+            );
+
+            Log::info('Schedule updated successfully', [
+                'booking_id' => $booking->id,
+                'booking_code' => $booking->booking_code,
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name,
+            ]);
+
+            return redirect()
+                ->route('dashboard-schedule')
+                ->with('success', 'Schedule updated successfully.');
+
+        } catch (\Throwable $e) {
+
+            Log::error($e);
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Failed to update schedule. Please try again.');
+        }
     }
 }

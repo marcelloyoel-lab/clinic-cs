@@ -133,6 +133,12 @@ Route::middleware('auth')->group(function () {
             ->name('booking-new');
         Route::post('/new-booking', [ScheduleController::class, 'store'])
             ->name('booking-schedule-store');
+
+        Route::get('/edit-schedule/{booking}', [ScheduleController::class, 'edit'])
+            ->name('edit-booking');
+
+        Route::put('/edit-schedule/{booking}', [ScheduleController::class, 'update'])
+            ->name('booking-schedule-update');
     });
 
 
