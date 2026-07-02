@@ -83,6 +83,7 @@ class ScheduleUpdateService
     {
         $booking->consultation->update([
             'doctor_id' => $data['doctor_id'],
+            'patient_name' => $data['name'],
             'chief_complaint' => $data['chief_complaint'],
         ]);
 
