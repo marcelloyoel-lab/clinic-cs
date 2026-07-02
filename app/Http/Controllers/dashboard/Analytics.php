@@ -62,6 +62,7 @@ class Analytics extends Controller
             'patient_name' => $booking->consultation?->patient_name ?? '-',
             'type' => $booking->type->label(),
             'doctor_name' => $booking->consultation?->doctor?->name ?? '-',
+            'edit_url' => route('edit-booking', $booking->id)
         ]);
         
         return view('content.dashboard.dashboards-schedule', compact('todaySchedules', 'upcomingSchedules'));

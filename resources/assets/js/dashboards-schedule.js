@@ -147,12 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <td class="py-3 text-end">
 
-            <button
-              type="button"
+            <a
+              href="${row.edit_url}"
               class="btn btn-sm btn-icon row-action"
             >
               <i class="bx bx-calendar-edit"></i>
-            </button>
+            </a>
 
           </td>
 
