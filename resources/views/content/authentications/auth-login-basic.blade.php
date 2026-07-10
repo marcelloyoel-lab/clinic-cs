@@ -5,7 +5,7 @@
 @section('page-style')
 @vite([
     'resources/assets/vendor/scss/pages/page-auth.scss',
-    'resources/js/pages/login.js',
+    'resources/assets/js/login.js',
 ])
 @endsection
 
