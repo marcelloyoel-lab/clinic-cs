@@ -35,6 +35,9 @@ const FontsScssFiles = GetFilesArray('resources/assets/vendor/fonts/!(_)*.scss')
 const FontsJsFiles = GetFilesArray('resources/assets/vendor/fonts/**/!(_)*.js');
 const FontsCssFiles = GetFilesArray('resources/assets/vendor/fonts/**/!(_)*.css');
 
+// CSS File
+const pageCssFiles = GetFilesArray('resources/assets/css/*.css');
+
 export default defineConfig({
   server: {
     host: '0.0.0.0',
@@ -49,6 +52,7 @@ export default defineConfig({
         'resources/css/app.css',
         'resources/assets/css/demo.css',
         'resources/js/app.js',
+        ...pageCssFiles,
         ...pageJsFiles,
         ...vendorJsFiles,
         ...LibsJsFiles,
